@@ -23,7 +23,7 @@ struct HabitListView: View {
                     
                     ForEach(0..<5) { _ in
                         VStack {
-                            NavigationLink(destination: Text("Details")) {
+                            NavigationLink(destination: HabitDetailView()) {
                                 HabitListCellView()
                             }
                         }
@@ -35,13 +35,13 @@ struct HabitListView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
-                        NavigationLink(destination: Text("Add Habit")) {
+                        NavigationLink(destination: AddHabitView()) {
                             Image(systemName: "plus.app")
                                 .foregroundStyle(.primary)
                         }
                     }
                     ToolbarItem(placement: .topBarTrailing) {
-                        NavigationLink(destination: Text("Setting")) {
+                        NavigationLink(destination: SettingView()) {
                             Image(systemName: "gearshape")
                                 .foregroundStyle(.primary)
                         }
