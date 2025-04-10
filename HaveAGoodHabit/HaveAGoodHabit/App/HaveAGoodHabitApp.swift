@@ -12,6 +12,7 @@ struct HaveAGoodHabitApp: App {
     var body: some Scene {
         WindowGroup {
             HabitListView()
+                .environment(\.managedObjectContext, PersistenceController.shared.viewContext)
         }
     }
 }
