@@ -1,27 +1,28 @@
 //
-//  AddHabitView.swift
+//  HabitFormView.swift
 //  HaveAGoodHabit
 //
-//  Created by 김윤지 on 4/7/25.
+//  Created by 김윤지 on 4/12/25.
 //
 
 import SwiftUI
 
-struct AddHabitView: View {
+struct HabitFormView: View {
+    let mode: HabitFormMode
+    
+    @ObservedObject var habitFormViewModel: HabitFormViewModel
     @EnvironmentObject var habitListviewModel: HabitListViewModel
     
     @State var habitName: String = ""
     @State var startDate: Date = Date()
     @State var endDate: Date = Date()
     
-    @State var newHabit: Habit?
-    
     let habitNameEmptyWarningMessage = "습관 이름은 필수 입력 항목입니다."
     
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack(spacing: 40) {
+        VStack(spacing: 34) {
             VStack(alignment: .leading) {
                 Text("습관")
                     .font(.caption)
@@ -43,8 +44,8 @@ struct AddHabitView: View {
                     .font(.caption)
                 
                 VStack(spacing: 24) {
-                    DatePicker("시작", selection: $startDate, displayedComponents: [.date])
-                    DatePicker("종료", selection: $endDate, displayedComponents: [.date])
+                    DatePicker("시작", selection: $startDate, in: Date()..., displayedComponents: .date)
+                    DatePicker("종료", selection: $endDate, in: startDate..., displayedComponents: .date)
                 }
                 .padding(20)
                 .background {
@@ -58,8 +59,13 @@ struct AddHabitView: View {
         }
         .padding(.horizontal)
         .background(Color(.secondarySystemBackground))
-        .navigationTitle("습관 추가하기")
+        .navigationTitle(mode.name)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            habitName = habitFormViewModel.habit.name
+            startDate = habitFormViewModel.habit.startDate
+            endDate = habitFormViewModel.habit.endDate
+        }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
@@ -72,13 +78,16 @@ struct AddHabitView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     if !habitName.isEmpty {
-                        newHabit = Habit(id: UUID(), name: habitName, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: [])
-                        
-                        guard let newHabit = newHabit else {
-                            fatalError("newHabit should not be nil")
+                        switch mode {
+                        case .add:
+                            let newHabit = Habit(id: UUID(), name: habitName, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: [])
+                            
+                            habitListviewModel.addHabit(habit: newHabit)
+                        case .edit:
+                            let editHbit = habitFormViewModel.habit
+                            
+                            habitListviewModel.updateHabit(habit: editHbit)
                         }
-                        
-                        habitListviewModel.addHabit(habit: newHabit)
                         dismiss()
                     }
                 } label: {
@@ -87,8 +96,4 @@ struct AddHabitView: View {
             }
         }
     }
-}
-
-#Preview {
-    AddHabitView()
 }
