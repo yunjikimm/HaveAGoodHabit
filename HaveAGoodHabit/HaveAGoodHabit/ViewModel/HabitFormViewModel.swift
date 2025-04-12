@@ -17,4 +17,8 @@ final class HabitFormViewModel: ObservableObject {
             self.habit = Habit(id: UUID(), name: "", createdAt: Date(), startDate: Date(), endDate: Date(), doneDates: [])
         }
     }
+    
+    func updateHabit(name: String, startDate: Date, endDate: Date) -> Habit {
+        return Habit(id: habit.id, name: name, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: habit.doneDates)
+    }
 }

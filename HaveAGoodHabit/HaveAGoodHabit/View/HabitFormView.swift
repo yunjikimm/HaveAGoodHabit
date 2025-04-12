@@ -84,7 +84,7 @@ struct HabitFormView: View {
                             
                             habitListviewModel.addHabit(habit: newHabit)
                         case .edit:
-                            let editHbit = habitFormViewModel.habit
+                            let editHbit = habitFormViewModel.updateHabit(name: habitName, startDate: startDate, endDate: endDate)
                             
                             habitListviewModel.updateHabit(habit: editHbit)
                         }
