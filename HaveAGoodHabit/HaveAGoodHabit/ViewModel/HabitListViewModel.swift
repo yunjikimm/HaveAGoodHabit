@@ -22,7 +22,7 @@ final class HabitListViewModel: ObservableObject {
     }
     
     func updateHabit(habit: Habit) {
-        provider.save(habit: habit)
+        provider.update(habit: habit)
         fetchHabits()
     }
     
