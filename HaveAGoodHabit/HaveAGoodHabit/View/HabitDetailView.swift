@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct HabitDetailView: View {
+    let habit: Habit
+    
+    @EnvironmentObject var habitListviewModel: HabitListViewModel
+    
     @State private var isShowEditModal: Bool = false
     @State private var isShowDeleteAlert: Bool = false
     
@@ -17,7 +21,7 @@ struct HabitDetailView: View {
         ScrollView {
             VStack(spacing: 32) {
                 VStack(spacing: 8) {
-                    Text("Habit Detail")
+                    Text(habit.name)
                         .font(.title)
                         .fontWeight(.bold)
                 }
@@ -45,17 +49,16 @@ struct HabitDetailView: View {
             }
         }
         .fullScreenCover(isPresented: $isShowEditModal) {
-            EditHabitView()
+            NavigationStack {
+                EditHabitView(habit: habit)
+            }
         }
         .alert("이 습관을 삭제할까요?", isPresented: $isShowDeleteAlert) {
             Button("삭제", role: .destructive) {
+                habitListviewModel.deleteHabit(habit: habit)
                 dismiss()
             }
             Button("취소", role: .cancel) {}
         }
     }
-}
-
-#Preview {
-    HabitDetailView()
 }

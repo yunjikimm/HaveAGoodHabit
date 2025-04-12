@@ -9,10 +9,13 @@ import SwiftUI
 
 @main
 struct HaveAGoodHabitApp: App {
+    @StateObject var habitListViewModel = HabitListViewModel()
+    
     var body: some Scene {
         WindowGroup {
             HabitListView()
                 .environment(\.managedObjectContext, PersistenceController.shared.viewContext)
+                .environmentObject(habitListViewModel)
         }
     }
 }

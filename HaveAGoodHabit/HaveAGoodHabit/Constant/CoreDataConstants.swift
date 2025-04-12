@@ -10,5 +10,5 @@ enum CoreDataModelName: String {
 }
 
 enum CoreDataEntityName: String {
-    case habit = "Habit"
+    case habit = "HabitEntity"
 }
