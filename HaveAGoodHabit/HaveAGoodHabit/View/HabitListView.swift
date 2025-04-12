@@ -8,46 +8,60 @@
 import SwiftUI
 
 struct HabitListView: View {
+    @EnvironmentObject var habitListviewModel: HabitListViewModel
+    
+    @State var isShowAddHabitView: Bool = false
+    
     var body: some View {
         NavigationView {
-            ZStack {
-                Color(.secondarySystemBackground).edgesIgnoringSafeArea(.all)
+            ScrollView {
+                HStack {
+                    Text("Habit List")
+                        .font(.title)
+                        .fontWeight(.bold)
+                    Spacer()
+                }
                 
-                ScrollView {
-                    HStack {
-                        Text("Habit List")
-                            .font(.title)
-                            .fontWeight(.bold)
-                        Spacer()
-                    }
-                    
-                    ForEach(0..<5) { _ in
+                if habitListviewModel.habits.isEmpty {
+                    Text("no data")
+                } else {
+                    ForEach(habitListviewModel.habits) { habit in
                         VStack {
-                            NavigationLink(destination: HabitDetailView()) {
-                                HabitListCellView()
+                            NavigationLink(destination: HabitDetailView(habit: habit)) {
+                                HabitListCellView(habit: habit)
                             }
                         }
                     }
                 }
-                .scrollIndicators(.hidden)
-                .padding(.horizontal)
-                .navigationTitle("HAVE A GOOD HABIT")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        NavigationLink(destination: AddHabitView()) {
-                            Image(systemName: "plus.app")
-                                .foregroundStyle(.primary)
-                        }
+            }
+            .scrollIndicators(.hidden)
+            .padding(.horizontal)
+            .background(Color(.secondarySystemBackground))
+            .navigationTitle("HAVE A GOOD HABIT")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        isShowAddHabitView.toggle()
+                    } label: {
+                        Image(systemName: "plus.app")
                     }
-                    ToolbarItem(placement: .topBarTrailing) {
-                        NavigationLink(destination: SettingView()) {
-                            Image(systemName: "gearshape")
-                                .foregroundStyle(.primary)
-                        }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink(destination: SettingView()) {
+                        Image(systemName: "gearshape")
+                            .foregroundStyle(.primary)
                     }
                 }
             }
+            .fullScreenCover(isPresented: $isShowAddHabitView) {
+                NavigationStack {
+                    AddHabitView()
+                }
+            }
+        }
+        .onAppear {
+            habitListviewModel.fetchHabits()
         }
     }
 }

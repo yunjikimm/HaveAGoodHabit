@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct HabitListCellView: View {
+    let habit: Habit
+    
     var body: some View {
         VStack {
-            Text("Habit name")
+            Text(habit.name)
         }
         .padding(.vertical, 32)
         .padding(.horizontal, 20)
@@ -20,8 +22,4 @@ struct HabitListCellView: View {
                 .fill(.background)
         }
     }
-}
-
-#Preview {
-    HabitListCellView()
 }
