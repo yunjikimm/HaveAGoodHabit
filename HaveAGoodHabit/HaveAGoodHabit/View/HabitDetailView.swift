@@ -27,7 +27,7 @@ struct HabitDetailView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                HabitCalendarView()
+                HabitCalendarView(habit: habit)
             }
         }
         .scrollIndicators(.hidden)
