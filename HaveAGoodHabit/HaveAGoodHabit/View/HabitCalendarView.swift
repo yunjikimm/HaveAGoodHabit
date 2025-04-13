@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HabitCalendarView: View {
+    let habit: Habit
+    
     @State private var currentMonth: Date = Date()
     
     var body: some View {
@@ -52,8 +54,15 @@ struct HabitCalendarView: View {
                         let day = date.formattedDateString("dd")
                         
                         VStack {
-                            Circle()
-                                .frame(width: 44, height: 44)
+                            // start ~ end Date 범위에 해당하는 날짜 UI
+                            if Calendar.current.isDateInRange(date: date, start: habit.startDate, end: habit.endDate) {
+                                Circle()
+                                    .fill(.secondary)
+                                    .frame(width: 44, height: 44)
+                            } else {
+                                Circle()
+                                    .fill(.clear)
+                            }
                             
                             Text(day)
                                 .font(.caption)
@@ -73,8 +82,4 @@ struct HabitCalendarView: View {
             }
         }
     }
-}
-
-#Preview {
-    HabitCalendarView()
 }
