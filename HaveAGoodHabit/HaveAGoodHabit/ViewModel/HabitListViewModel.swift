@@ -30,6 +30,4 @@ final class HabitListViewModel: ObservableObject {
         provider.delete(habit: habit)
         fetchHabits()
     }
-    
-    // TODO: Service 호출 (오늘 습관 체크, 완료율 계산)
 }
