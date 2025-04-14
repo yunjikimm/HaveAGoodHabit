@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct HabitCalendarView: View {
-    let habit: Habit
+    @EnvironmentObject var habitListviewModel: HabitListViewModel
+    @ObservedObject var habitCalendarViewModel: HabitCalendarViewModel
     
     @State private var currentMonth: Date = Date()
+    @State var selectedDate: Date?
     
     var body: some View {
         VStack(spacing: 32) {
@@ -43,7 +45,7 @@ struct HabitCalendarView: View {
                             .foregroundColor(.secondary)
                     }
                     
-                    // 자리 맞춤 용
+                    // 자리 맞춤
                     ForEach(0..<currentMonth.startOffsetOfThisMonth, id: \.self) { month in
                         Circle()
                             .fill(.clear)
@@ -55,10 +57,15 @@ struct HabitCalendarView: View {
                         
                         VStack {
                             // start ~ end Date 범위에 해당하는 날짜 UI
-                            if Calendar.current.isDateInRange(date: date, start: habit.startDate, end: habit.endDate) {
+                            if Calendar.current.isDateInRange(date: date, start: habitCalendarViewModel.habit.startDate, end: habitCalendarViewModel.habit.endDate) {
                                 Circle()
-                                    .fill(.secondary)
+                                    .fill(habitCalendarViewModel.isCompleted(date: date) ? .green : .secondary)
                                     .frame(width: 44, height: 44)
+                                    .onTapGesture {
+                                        selectedDate = date
+                                        guard let selectedDate = selectedDate else { return }
+                                        habitCalendarViewModel.toggleHabitDoneToday(selectedDate: selectedDate)
+                                    }
                             } else {
                                 Circle()
                                     .fill(.clear)
@@ -80,6 +87,9 @@ struct HabitCalendarView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            habitListviewModel.fetchHabits()
         }
     }
 }
