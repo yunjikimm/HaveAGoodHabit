@@ -14,6 +14,7 @@ final class HabitEntity: NSManagedObject, Identifiable {
     @NSManaged var startDate: Date
     @NSManaged var endDate: Date
     @NSManaged var doneDates: [Date]
+    @NSManaged var completionRate: Double
 }
 
 extension HabitEntity {
@@ -24,7 +25,8 @@ extension HabitEntity {
             createdAt: createdAt,
             startDate: startDate,
             endDate: endDate,
-            doneDates: doneDates
+            doneDates: doneDates,
+            completionRate: completionRate
         )
     }
     
@@ -35,5 +37,6 @@ extension HabitEntity {
         self.startDate = domain.startDate
         self.endDate = domain.endDate
         self.doneDates = domain.doneDates
+        self.completionRate = domain.completionRate
     }
 }

@@ -11,7 +11,25 @@ struct HabitListCellView: View {
     let habit: Habit
     
     var body: some View {
-        VStack {
+        HStack {
+            if habit.completionRate > 0.89 {
+                Circle()
+                    .fill(.green.opacity(0.9))
+                    .frame(width: 44, height: 44)
+            } else if habit.completionRate > 0.59 {
+                Circle()
+                    .fill(.green.opacity(0.6))
+                    .frame(width: 44, height: 44)
+            } else if habit.completionRate > 0.29 {
+                Circle()
+                    .fill(.green.opacity(0.3))
+                    .frame(width: 44, height: 44)
+            } else {
+                Circle()
+                    .fill(.gray.opacity(0.1))
+                    .frame(width: 44, height: 44)
+            }
+            
             Text(habit.name)
         }
         .padding(.vertical, 32)

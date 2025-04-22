@@ -65,6 +65,7 @@ struct HabitCalendarView: View {
                                         selectedDate = date
                                         guard let selectedDate = selectedDate else { return }
                                         habitCalendarViewModel.toggleHabitDoneToday(selectedDate: selectedDate)
+                                        habitCalendarViewModel.calculateCompletionRate()
                                     }
                             } else {
                                 Circle()
@@ -88,7 +89,7 @@ struct HabitCalendarView: View {
                 }
             }
         }
-        .onAppear {
+        .onDisappear {
             habitListviewModel.fetchHabits()
         }
     }
