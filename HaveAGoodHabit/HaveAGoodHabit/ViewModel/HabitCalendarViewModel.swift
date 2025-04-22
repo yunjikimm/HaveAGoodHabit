@@ -25,4 +25,9 @@ final class HabitCalendarViewModel: ObservableObject {
     func isCompleted(date: Date) -> Bool {
         service.isCompleted(date: date, habit: habit)
     }
+    
+    func calculateCompletionRate() {
+        habit.completionRate = service.calculateCompletionRate(habit: habit)
+        provider.update(habit: habit)
+    }
 }

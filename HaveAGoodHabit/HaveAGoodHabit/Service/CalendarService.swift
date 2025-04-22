@@ -19,4 +19,21 @@ struct CalendarService {
     func isCompleted(date: Date, habit: Habit) -> Bool {
         habit.doneDates.contains(where: { Calendar.current.isDate($0, inSameDayAs: date) })
     }
+    
+    func calculateCompletionRate(habit: Habit) -> Double {
+        let calendar = Calendar.current
+        let start = calendar.startOfDay(for: habit.startDate)
+        let end = calendar.startOfDay(for: habit.endDate)
+        guard let totalDays = calendar.dateComponents([.day], from: start, to: end).day else {
+            return 0
+        }
+        
+        let activeDays = totalDays + 1
+        
+        let completedDays = habit.doneDates.filter {
+            calendar.startOfDay(for: $0) <= end
+        }.count
+        
+        return activeDays == 0 ? 0 : Double(completedDays) / Double(activeDays)
+    }
 }

@@ -14,11 +14,11 @@ final class HabitFormViewModel: ObservableObject {
         if let habit = habit {
             self.habit = habit
         } else {
-            self.habit = Habit(id: UUID(), name: "", createdAt: Date(), startDate: Date(), endDate: Date(), doneDates: [])
+            self.habit = Habit(id: UUID(), name: "", createdAt: Date(), startDate: Date(), endDate: Date(), doneDates: [], completionRate: 0.0)
         }
     }
     
     func updateHabit(name: String, startDate: Date, endDate: Date) -> Habit {
-        return Habit(id: habit.id, name: name, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: habit.doneDates)
+        return Habit(id: habit.id, name: name, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: habit.doneDates, completionRate: habit.completionRate)
     }
 }

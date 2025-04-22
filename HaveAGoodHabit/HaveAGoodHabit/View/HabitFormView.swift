@@ -80,7 +80,7 @@ struct HabitFormView: View {
                     if !habitName.isEmpty {
                         switch mode {
                         case .add:
-                            let newHabit = Habit(id: UUID(), name: habitName, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: [])
+                            let newHabit = Habit(id: UUID(), name: habitName, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: [], completionRate: 0.0)
                             
                             habitListviewModel.addHabit(habit: newHabit)
                         case .edit:
