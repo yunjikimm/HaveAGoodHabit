@@ -22,6 +22,10 @@ final class HabitCalendarViewModel: ObservableObject {
         provider.update(habit: habit)
     }
     
+    func isDateInRange(date: Date, start: Date, end: Date) -> Bool {
+        service.isDateInRange(date: date, start: start, end: end)
+    }
+    
     func isCompleted(date: Date) -> Bool {
         service.isCompleted(date: date, habit: habit)
     }

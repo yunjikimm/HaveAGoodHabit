@@ -57,7 +57,7 @@ struct HabitCalendarView: View {
                         
                         VStack {
                             // start ~ end Date 범위에 해당하는 날짜 UI
-                            if Calendar.current.isDateInRange(date: date, start: habitCalendarViewModel.habit.startDate, end: habitCalendarViewModel.habit.endDate) {
+                            if habitCalendarViewModel.isDateInRange(date: date, start: habitCalendarViewModel.habit.startDate, end: habitCalendarViewModel.habit.endDate) {
                                 Circle()
                                     .fill(habitCalendarViewModel.isCompleted(date: date) ? .green : .secondary)
                                     .frame(width: 44, height: 44)

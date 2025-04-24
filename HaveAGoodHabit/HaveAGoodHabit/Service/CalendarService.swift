@@ -16,6 +16,14 @@ struct CalendarService {
         }
     }
     
+    func isDateInRange(date: Date, start: Date, end: Date) -> Bool {
+        let calendar = Calendar.current
+        let start = calendar.startOfDay(for: start)
+        let end = calendar.startOfDay(for: end)
+        let current = calendar.startOfDay(for: date)
+        return current >= start && current <= end
+    }
+    
     func isCompleted(date: Date, habit: Habit) -> Bool {
         habit.doneDates.contains(where: { Calendar.current.isDate($0, inSameDayAs: date) })
     }
