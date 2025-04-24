@@ -11,8 +11,13 @@ import CoreData
 final class CoreDataProvider {
     private let context = PersistenceController.shared.viewContext
     
-    func fetchAll() -> [Habit] {
+    func fetchHabits(limit: Int, offset: Int) -> [Habit] {
         let request: NSFetchRequest<HabitEntity> = NSFetchRequest(entityName: CoreDataEntityName.habit.rawValue)
+        
+        request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
+        
+        request.fetchLimit = limit
+        request.fetchOffset = offset
         
         guard let habits = try? context.fetch(request) else {
             return []
