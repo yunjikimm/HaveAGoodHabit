@@ -14,31 +14,31 @@ struct HabitListView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
-                HStack {
-                    Text("Habit List")
-                        .font(.title)
-                        .fontWeight(.bold)
-                    Spacer()
-                }
-                
+            VStack {
                 if habitListviewModel.habits.isEmpty {
                     Text("no data")
                 } else {
-                    ForEach(habitListviewModel.habits) { habit in
-                        VStack {
-                            NavigationLink(destination: HabitDetailView(habit: habit)) {
-                                HabitListCellView(habit: habit)
-                            }
+                    List {
+                        ForEach(habitListviewModel.habits) { habit in
+                            HabitListCellView(habit: habit)
+                                .onAppear {
+                                    guard let lastIndex = habitListviewModel.habits.last else { return }
+                                    
+                                    if habit.id == lastIndex.id {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            habitListviewModel.fetchNextPage()
+                                        }
+                                    }
+                                }
                         }
                     }
+                    .listStyle(.plain)
+                    .scrollIndicators(.hidden)
                 }
             }
-            .scrollIndicators(.hidden)
-            .padding(.horizontal)
-            .background(Color(.secondarySystemBackground))
             .navigationTitle("HAVE A GOOD HABIT")
             .navigationBarTitleDisplayMode(.inline)
+            .background(Color(.secondarySystemBackground))
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

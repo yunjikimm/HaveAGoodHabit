@@ -10,10 +10,22 @@ import Foundation
 final class HabitListViewModel: ObservableObject {
     @Published var habits: [Habit] = []
     
+    private var currentPage = 0
+    private let pageSize = 10
+    
     private let provider = CoreDataProvider()
     
     func fetchHabits() {
-        habits = provider.fetchAll()
+        habits = provider.fetchHabits(limit: pageSize, offset: currentPage)
+    }
+    
+    func fetchNextPage() {
+        currentPage += 1
+        
+        let offset = currentPage * pageSize
+        let nextPage = provider.fetchHabits(limit: pageSize, offset: offset)
+        
+        habits.append(contentsOf: nextPage)
     }
     
     func addHabit(habit: Habit) {
