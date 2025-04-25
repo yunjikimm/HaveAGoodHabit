@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum CompletionStatus: String {
+    case notCompleted = "rate-icon-0"
+    case completed = "rate-icon-3"
+}
+
 struct HabitCalendarView: View {
     @EnvironmentObject var habitListviewModel: HabitListViewModel
     @ObservedObject var habitCalendarViewModel: HabitCalendarViewModel
@@ -42,7 +47,7 @@ struct HabitCalendarView: View {
                     ForEach(Weekday.allCases, id: \.rawValue) { weekday in
                         Text(weekday.rawValue)
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                     
                     // 자리 맞춤
@@ -58,8 +63,9 @@ struct HabitCalendarView: View {
                         VStack {
                             // start ~ end Date 범위에 해당하는 날짜 UI
                             if habitCalendarViewModel.isDateInRange(date: date, start: habitCalendarViewModel.habit.startDate, end: habitCalendarViewModel.habit.endDate) {
-                                Circle()
-                                    .fill(habitCalendarViewModel.isCompleted(date: date) ? .green : .secondary)
+                                Image(habitCalendarViewModel.isCompleted(date: date) ? CompletionStatus.completed.rawValue : CompletionStatus.notCompleted.rawValue)
+                                    .resizable()
+                                    .scaledToFit()
                                     .frame(width: 44, height: 44)
                                     .onTapGesture {
                                         selectedDate = date

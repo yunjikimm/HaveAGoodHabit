@@ -20,10 +20,14 @@ struct HabitDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 32) {
-                VStack(spacing: 8) {
+                VStack(alignment: .leading) {
                     Text(habit.name)
                         .font(.title)
                         .fontWeight(.bold)
+                    
+                    Text(habit.startDate.formattedDateString("yyyy년 MM월 dd일") + " ~ " + habit.endDate.formattedDateString("yyyy년 MM월 dd일"))
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -44,7 +48,6 @@ struct HabitDetailView: View {
                     }
                 } label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.primary)
                 }
             }
         }
