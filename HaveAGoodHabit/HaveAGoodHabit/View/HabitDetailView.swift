@@ -34,9 +34,17 @@ struct HabitDetailView: View {
                 HabitCalendarView(habitCalendarViewModel: HabitCalendarViewModel(habit: habit))
             }
         }
+        .navigationBarBackButtonHidden()
         .scrollIndicators(.hidden)
         .padding(.horizontal)
         .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                }
+            }
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
                     Button("수정") {
