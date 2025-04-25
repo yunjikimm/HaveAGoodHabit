@@ -33,10 +33,23 @@ struct HabitFormView: View {
                         RoundedRectangle(cornerRadius: 24)
                             .fill(.background)
                     }
+                    .onChange(of: habitName) { newValue in
+                        if newValue.count > 20 {
+                            habitName = String(newValue.prefix(20))
+                        }
+                    }
                 
-                Text(habitNameEmptyWarningMessage)
-                    .font(.caption)
-                    .foregroundColor(habitName.isEmpty ? .red : .clear)
+                HStack {
+                    Text(habitNameEmptyWarningMessage)
+                        .font(.caption)
+                        .foregroundColor(habitName.isEmpty ? .red : .clear)
+                    
+                    Spacer()
+                        
+                    Text("\(habitName.count) / 20")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
             
             VStack(alignment: .leading) {
