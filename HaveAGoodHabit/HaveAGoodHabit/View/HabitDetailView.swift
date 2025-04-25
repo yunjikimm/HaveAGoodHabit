@@ -19,7 +19,7 @@ struct HabitDetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 32) {
+            VStack(spacing: 24) {
                 VStack(alignment: .leading) {
                     Text(habit.name)
                         .font(.title)
@@ -30,13 +30,21 @@ struct HabitDetailView: View {
                         .foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 4)
                 
                 HabitCalendarView(habitCalendarViewModel: HabitCalendarViewModel(habit: habit))
+                    .padding(.vertical, 24)
+                    .padding(.horizontal)
+                    .background {
+                        RoundedRectangle(cornerRadius: 24)
+                            .fill(.background)
+                    }
             }
         }
         .navigationBarBackButtonHidden()
         .scrollIndicators(.hidden)
-        .padding(.horizontal)
+        .padding(.horizontal, 8)
+        .background(Color(.secondarySystemBackground))
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
