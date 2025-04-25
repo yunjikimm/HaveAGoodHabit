@@ -26,6 +26,7 @@ struct HabitFormView: View {
             VStack(alignment: .leading) {
                 Text("습관")
                     .font(.caption)
+                    .padding(.leading, 4)
                 
                 TextField("습관을 입력해주세요.", text: $habitName)
                     .padding(20)
@@ -50,11 +51,13 @@ struct HabitFormView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
+                .padding(.horizontal, 4)
             }
             
             VStack(alignment: .leading) {
                 Text("기간 설정")
                     .font(.caption)
+                    .padding(.leading, 4)
                 
                 VStack(spacing: 24) {
                     DatePicker("시작", selection: $startDate, in: Date()..., displayedComponents: .date)
@@ -70,7 +73,7 @@ struct HabitFormView: View {
             Spacer()
 
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 8)
         .background(Color(.secondarySystemBackground))
         .navigationTitle(mode.name)
         .navigationBarTitleDisplayMode(.inline)
