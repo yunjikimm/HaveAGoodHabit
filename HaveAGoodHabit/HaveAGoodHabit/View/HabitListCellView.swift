@@ -12,34 +12,23 @@ struct HabitListCellView: View {
     
     var body: some View {
         NavigationLink(destination: HabitDetailView(habit: habit)) {
-            HStack {
-                if habit.completionRate > 0.89 {
-                    Circle()
-                        .fill(.green.opacity(0.9))
-                        .frame(width: 44, height: 44)
-                } else if habit.completionRate > 0.59 {
-                    Circle()
-                        .fill(.green.opacity(0.6))
-                        .frame(width: 44, height: 44)
-                } else if habit.completionRate > 0.29 {
-                    Circle()
-                        .fill(.green.opacity(0.3))
-                        .frame(width: 44, height: 44)
-                } else {
-                    Circle()
-                        .fill(.gray.opacity(0.1))
-                        .frame(width: 44, height: 44)
-                }
+            HStack(spacing: 20) {
+                Image(CompletionLevel.from(rate: habit.completionRate).rawValue)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 56, height: 56)
                 
                 Text(habit.name)
+                    .foregroundStyle(.primary)
+                    .multilineTextAlignment(.leading)
             }
-        }
-        .padding(.vertical, 32)
-        .padding(.horizontal, 20)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background {
-            RoundedRectangle(cornerRadius: 24)
-                .fill(.background)
+            .padding(.vertical, 32)
+            .padding(.horizontal, 24)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background {
+                RoundedRectangle(cornerRadius: 32)
+                    .fill(.background)
+            }
         }
     }
 }

@@ -14,13 +14,14 @@ struct HabitListView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            ScrollView {
                 if habitListviewModel.habits.isEmpty {
                     Text("no data")
                 } else {
-                    List {
+                    LazyVStack {
                         ForEach(habitListviewModel.habits) { habit in
                             HabitListCellView(habit: habit)
+                                .background(Color(.secondarySystemBackground))
                                 .onAppear {
                                     guard let lastIndex = habitListviewModel.habits.last else { return }
                                     
@@ -32,14 +33,18 @@ struct HabitListView: View {
                                 }
                         }
                     }
-                    .listStyle(.plain)
-                    .scrollIndicators(.hidden)
+                    .padding(.horizontal, 8)
                 }
             }
-            .navigationTitle("HAVE A GOOD HABIT")
             .navigationBarTitleDisplayMode(.inline)
             .background(Color(.secondarySystemBackground))
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Image("main-icon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 24)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         isShowAddHabitView.toggle()
