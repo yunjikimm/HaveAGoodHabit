@@ -41,18 +41,10 @@ struct HabitDetailView: View {
                     }
             }
         }
-        .navigationBarBackButtonHidden()
         .scrollIndicators(.hidden)
         .padding(.horizontal, 8)
         .background(Color(.secondarySystemBackground))
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                }
-            }
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {
                     Button("수정") {

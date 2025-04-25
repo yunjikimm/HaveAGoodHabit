@@ -39,6 +39,7 @@ struct HabitListView: View {
                     .background(Color(.secondarySystemBackground))
                 }
             }
+            .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {

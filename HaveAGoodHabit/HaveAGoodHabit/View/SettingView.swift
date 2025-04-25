@@ -18,16 +18,6 @@ struct SettingView: View {
         }
         .navigationTitle("설정")
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                }
-            }
-        }
     }
 }
 
