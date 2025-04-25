@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum CompletionStatus: String {
-    case notCompleted = "rate-icon-0"
-    case completed = "rate-icon-3"
-}
-
 struct HabitCalendarView: View {
     @EnvironmentObject var habitListviewModel: HabitListViewModel
     @ObservedObject var habitCalendarViewModel: HabitCalendarViewModel
