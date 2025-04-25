@@ -26,6 +26,7 @@ struct HabitCalendarView: View {
                 Spacer()
                 
                 Text(currentMonth.startDateOfThisMonth.formattedDateString("yyyy년 MM월"))
+                    .fontWeight(.bold)
 
                 Spacer()
                 
