@@ -14,30 +14,32 @@ struct HabitListView: View {
     
     var body: some View {
         NavigationView {
-            ScrollView {
+            VStack {
                 if habitListviewModel.habits.isEmpty {
-                    Text("no data")
+                    EmptyHabitListView()
                 } else {
-                    LazyVStack {
-                        ForEach(habitListviewModel.habits) { habit in
-                            HabitListCellView(habit: habit)
-                                .background(Color(.secondarySystemBackground))
-                                .onAppear {
-                                    guard let lastIndex = habitListviewModel.habits.last else { return }
-                                    
-                                    if habit.id == lastIndex.id {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                            habitListviewModel.fetchNextPage()
+                    ScrollView {
+                        LazyVStack {
+                            ForEach(habitListviewModel.habits) { habit in
+                                HabitListCellView(habit: habit)
+                                    .background(Color(.secondarySystemBackground))
+                                    .onAppear {
+                                        guard let lastIndex = habitListviewModel.habits.last else { return }
+                                        
+                                        if habit.id == lastIndex.id {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                habitListviewModel.fetchNextPage()
+                                            }
                                         }
                                     }
-                                }
+                            }
                         }
+                        .padding(.horizontal, 8)
                     }
-                    .padding(.horizontal, 8)
+                    .background(Color(.secondarySystemBackground))
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .background(Color(.secondarySystemBackground))
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Image("main-icon")
