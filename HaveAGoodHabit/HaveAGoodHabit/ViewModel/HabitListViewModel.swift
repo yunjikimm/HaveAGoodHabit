@@ -16,6 +16,8 @@ final class HabitListViewModel: ObservableObject {
     private let provider = CoreDataProvider()
     
     func fetchHabits() {
+        currentPage = 0
+        
         habits = provider.fetchHabits(limit: pageSize, offset: currentPage)
     }
     
