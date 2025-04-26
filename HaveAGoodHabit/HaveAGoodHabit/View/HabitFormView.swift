@@ -63,6 +63,7 @@ struct HabitFormView: View {
                     DatePicker("시작", selection: $startDate, in: Date()..., displayedComponents: .date)
                     DatePicker("종료", selection: $endDate, in: startDate..., displayedComponents: .date)
                 }
+                .environment(\.locale, Locale(identifier: "ko_KR"))
                 .padding(20)
                 .background {
                     RoundedRectangle(cornerRadius: 24)
