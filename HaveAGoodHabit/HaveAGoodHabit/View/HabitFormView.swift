@@ -17,8 +17,6 @@ struct HabitFormView: View {
     @State var startDate: Date = Date()
     @State var endDate: Date = Date()
     
-    let habitNameEmptyWarningMessage = "습관 이름은 필수 입력 항목입니다."
-    
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -28,7 +26,7 @@ struct HabitFormView: View {
                     .font(.caption)
                     .padding(.leading, 4)
                 
-                TextField("습관을 입력해주세요.", text: $habitName)
+                TextField(FormNoticeMessage.habitNamePlaceholder.rawValue, text: $habitName)
                     .padding(20)
                     .background {
                         RoundedRectangle(cornerRadius: 24)
@@ -41,7 +39,7 @@ struct HabitFormView: View {
                     }
                 
                 HStack {
-                    Text(habitNameEmptyWarningMessage)
+                    Text(FormNoticeMessage.habitNameEmpty.rawValue)
                         .font(.caption)
                         .foregroundColor(habitName.isEmpty ? .red : .clear)
                     
