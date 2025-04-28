@@ -27,11 +27,7 @@ struct HabitFormView: View {
                     .padding(.leading, 4)
                 
                 TextField(FormNoticeMessage.habitNamePlaceholder.rawValue, text: $habitName)
-                    .padding(20)
-                    .background {
-                        RoundedRectangle(cornerRadius: 24)
-                            .fill(.background)
-                    }
+                    .roundRectangleBackground()
                     .onChange(of: habitName) { newValue in
                         if newValue.count > 20 {
                             habitName = String(newValue.prefix(20))
@@ -62,11 +58,7 @@ struct HabitFormView: View {
                     DatePicker("종료", selection: $endDate, in: startDate..., displayedComponents: .date)
                 }
                 .environment(\.locale, Locale(identifier: "ko_KR"))
-                .padding(20)
-                .background {
-                    RoundedRectangle(cornerRadius: 24)
-                        .fill(.background)
-                }
+                .roundRectangleBackground()
             }
             
             Spacer()

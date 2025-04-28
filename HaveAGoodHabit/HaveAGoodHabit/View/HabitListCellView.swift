@@ -35,13 +35,9 @@ struct HabitListCellView: View {
                     }
                 }
             }
-            .padding(.vertical, 32)
-            .padding(.horizontal, 24)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background {
-                RoundedRectangle(cornerRadius: 32)
-                    .fill(.background)
-            }
+            .padding(8)
+            .roundRectangleBackground()
         }
     }
 }

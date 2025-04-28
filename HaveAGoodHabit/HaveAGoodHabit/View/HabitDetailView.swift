@@ -29,20 +29,10 @@ struct HabitDetailView: View {
                         .badgeBackground()
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, 24)
-                .padding(.horizontal)
-                .background {
-                    RoundedRectangle(cornerRadius: 24)
-                        .fill(.background)
-                }
+                .roundRectangleBackground()
                 
                 HabitCalendarView(habitCalendarViewModel: HabitCalendarViewModel(habit: habit))
-                    .padding(.vertical, 24)
-                    .padding(.horizontal)
-                    .background {
-                        RoundedRectangle(cornerRadius: 24)
-                            .fill(.background)
-                    }
+                    .roundRectangleBackground()
             }
         }
         .scrollIndicators(.hidden)
