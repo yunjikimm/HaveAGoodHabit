@@ -8,11 +8,6 @@
 import Foundation
 
 extension Date {
-    // 오늘인지 확인
-    func isToday(date: Date) -> Bool {
-        Calendar.current.isDate(date, inSameDayAs: Date.now)
-    }
-    
     // 이번 달의 첫 날
     var startDateOfThisMonth: Date {
         guard let date = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: self)) else {

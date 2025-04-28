@@ -67,7 +67,7 @@ struct HabitCalendarView: View {
                                         selectedDate = date
                                         guard let selectedDate = selectedDate else { return }
                                         
-                                        if currentMonth.isToday(date: date) {
+                                        if habitCalendarViewModel.isToday(date: date) {
                                             habitCalendarViewModel.toggleHabitDoneToday(selectedDate: selectedDate)
                                             habitCalendarViewModel.calculateCompletionRate()
                                         }
@@ -81,13 +81,8 @@ struct HabitCalendarView: View {
                                 .font(.caption)
                                 .padding(4)
                                 .background {
-                                    if currentMonth.isToday(date: date) {
-                                        Circle()
-                                            .fill(.secondary)
-                                    } else {
-                                        Circle()
-                                            .fill(.clear)
-                                    }
+                                    Circle()
+                                    .fill(habitCalendarViewModel.isToday(date: date) ? Color.secondary : Color.clear)
                                 }
                         }
                     }

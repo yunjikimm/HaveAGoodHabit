@@ -16,6 +16,10 @@ struct CalendarService {
         }
     }
     
+    func isToday(date: Date) -> Bool {
+        Calendar.current.isDate(date, inSameDayAs: Date.now)
+    }
+    
     func isDateInRange(date: Date, start: Date, end: Date) -> Bool {
         let calendar = Calendar.current
         let start = calendar.startOfDay(for: start)
