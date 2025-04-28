@@ -17,12 +17,12 @@ struct HabitListView: View {
             VStack {
                 if habitListviewModel.habits.isEmpty {
                     EmptyHabitListView()
+                        .padding(8)
                 } else {
                     ScrollView {
                         LazyVStack {
                             ForEach(habitListviewModel.habits) { habit in
                                 HabitListCellView(habit: habit)
-                                    .background(Color(.secondarySystemBackground))
                                     .onAppear {
                                         guard let lastIndex = habitListviewModel.habits.last else { return }
                                         
@@ -36,9 +36,9 @@ struct HabitListView: View {
                         }
                         .padding(.horizontal, 8)
                     }
-                    .background(Color(.secondarySystemBackground))
                 }
             }
+            .background(Color(.secondarySystemBackground))
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

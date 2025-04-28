@@ -25,8 +25,8 @@ struct EmptyHabitListView: View {
                 Text("새로운 습관을 만들어 보세요!")
             }
         }
-        .foregroundStyle(.secondary)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .roundRectangleBackground()
     }
 }
 

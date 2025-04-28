@@ -19,26 +19,20 @@ struct HabitDetailView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {
-                VStack(alignment: .leading) {
+            VStack {
+                VStack(alignment: .leading, spacing: 8) {
                     Text(habit.name)
                         .font(.title)
                         .fontWeight(.bold)
                     
                     Text(habit.startDate.formattedDateString("yyyy년 MM월 dd일") + " ~ " + habit.endDate.formattedDateString("yyyy년 MM월 dd일"))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .badgeBackground()
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 4)
+                .roundRectangleBackground()
                 
                 HabitCalendarView(habitCalendarViewModel: HabitCalendarViewModel(habit: habit))
-                    .padding(.vertical, 24)
-                    .padding(.horizontal)
-                    .background {
-                        RoundedRectangle(cornerRadius: 24)
-                            .fill(.background)
-                    }
+                    .roundRectangleBackground()
             }
         }
         .scrollIndicators(.hidden)

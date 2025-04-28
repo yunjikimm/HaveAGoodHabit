@@ -18,17 +18,26 @@ struct HabitListCellView: View {
                     .scaledToFit()
                     .frame(width: 56, height: 56)
                 
-                Text(habit.name)
-                    .foregroundStyle(.primary)
-                    .multilineTextAlignment(.leading)
+                VStack(alignment: .leading) {
+                    Text(habit.name)
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.leading)
+                    
+                    HStack {
+                        Text("\(Int(habit.completionRate * 100))%")
+                            .badgeBackground()
+                        
+                        HStack(spacing: 4) {
+                            Image(systemName: "checkmark.circle.fill")
+                            Text("\(habit.doneDates.count)")
+                        }
+                        .badgeBackground()
+                    }
+                }
             }
-            .padding(.vertical, 32)
-            .padding(.horizontal, 24)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .background {
-                RoundedRectangle(cornerRadius: 32)
-                    .fill(.background)
-            }
+            .padding(8)
+            .roundRectangleBackground()
         }
     }
 }
