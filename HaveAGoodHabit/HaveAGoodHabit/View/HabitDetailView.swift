@@ -25,7 +25,7 @@ struct HabitDetailView: View {
                         .font(.title)
                         .fontWeight(.bold)
                     
-                    Text(habit.startDate.formattedDateString("yyyy년 MM월 dd일") + " ~ " + habit.endDate.formattedDateString("yyyy년 MM월 dd일"))
+                    Text(DateFormatterToString.yearMonthDay(date: habit.startDate) + " ~ " + DateFormatterToString.yearMonthDay(date: habit.endDate))
                         .badgeBackground()
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
