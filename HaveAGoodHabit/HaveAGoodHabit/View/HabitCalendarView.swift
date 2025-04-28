@@ -25,7 +25,7 @@ struct HabitCalendarView: View {
                 
                 Spacer()
                 
-                Text(currentMonth.startDateOfThisMonth.formattedDateString("yyyy년 MM월"))
+                Text(DateFormatterToString.yearMonth(date: currentMonth.startDateOfThisMonth))
                     .fontWeight(.bold)
 
                 Spacer()
@@ -54,7 +54,7 @@ struct HabitCalendarView: View {
                     
                     // 이번 달 날짜
                     ForEach(currentMonth.dateInThisMonth, id: \.self) { date in
-                        let day = date.formattedDateString("dd")
+                        let day = DateFormatterToString.day(date: date)
                         
                         VStack {
                             // start ~ end Date 범위에 해당하는 날짜 UI

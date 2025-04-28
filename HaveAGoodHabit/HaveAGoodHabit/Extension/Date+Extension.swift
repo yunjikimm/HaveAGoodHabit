@@ -8,13 +8,6 @@
 import Foundation
 
 extension Date {
-    // date formatter
-    func formattedDateString(_ format: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return dateFormatter.string(from: self)
-    }
-    
     // 오늘인지 확인
     func isToday(date: Date) -> Bool {
         Calendar.current.isDate(date, inSameDayAs: Date.now)
