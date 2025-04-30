@@ -15,8 +15,4 @@ struct Habit: Identifiable {
     var endDate: Date
     var doneDates: [Date]
     var completionRate: Double
-    
-    var isNameValid: Bool {
-        !name.isEmpty
-    }
 }
