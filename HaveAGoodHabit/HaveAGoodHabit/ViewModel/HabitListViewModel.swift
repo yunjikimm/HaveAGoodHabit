@@ -10,38 +10,43 @@ import Foundation
 final class HabitListViewModel: ObservableObject {
     @Published var habits: [Habit] = []
     
-    private var currentPage = 0
-    private let pageSize = 10
+    private let service: HabitServiceProtocol
+
+    init(service: HabitServiceProtocol = HabitService()) {
+        self.service = service
+    }
     
-    private let provider = CoreDataProvider()
-    
-    func fetchHabits() {
-        currentPage = 0
-        
-        habits = provider.fetchHabits(limit: pageSize, offset: currentPage)
+    func fetchAll() {
+        habits = service.fetchAll()
     }
     
     func fetchNextPage() {
-        currentPage += 1
-        
-        let offset = currentPage * pageSize
-        let nextPage = provider.fetchHabits(limit: pageSize, offset: offset)
+        let nextPage = service.fetchAll()
         
         habits.append(contentsOf: nextPage)
     }
     
-    func addHabit(habit: Habit) {
-        provider.save(habit: habit)
-        fetchHabits()
+    func fetchHabit(id: UUID) {
+        guard let newHabit = service.fetchHabit(id: id) else { return }
+        
+        guard let index = habits.firstIndex(where: { $0.id == id }) else { return }
+        
+        habits[index] = newHabit
+        habits = habits.map { $0.id == newHabit.id ? newHabit : $0 }
     }
     
-    func updateHabit(habit: Habit) {
-        provider.update(habit: habit)
-        fetchHabits()
+    func save(habit: Habit) {
+        service.save(habit: habit)
+        fetchAll()
     }
     
-    func deleteHabit(habit: Habit) {
-        provider.delete(habit: habit)
-        fetchHabits()
+    func update(habit: Habit) {
+        service.update(habit: habit)
+        fetchHabit(id: habit.id)
+    }
+    
+    func delete(habit: Habit) {
+        service.delete(habit: habit)
+        fetchAll()
     }
 }

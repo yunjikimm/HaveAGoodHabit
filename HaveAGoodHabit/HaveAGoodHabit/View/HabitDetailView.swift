@@ -60,7 +60,7 @@ struct HabitDetailView: View {
         }
         .alert("이 습관을 삭제할까요?", isPresented: $isShowDeleteAlert) {
             Button("삭제", role: .destructive) {
-                habitListviewModel.deleteHabit(habit: habit)
+                habitListviewModel.delete(habit: habit)
                 dismiss()
             }
             Button("취소", role: .cancel) {}
