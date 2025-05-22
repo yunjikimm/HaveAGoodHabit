@@ -90,7 +90,7 @@ struct HabitCalendarView: View {
             }
         }
         .onDisappear {
-            habitListviewModel.fetchHabits()
+            habitListviewModel.fetchAll()
         }
     }
 }

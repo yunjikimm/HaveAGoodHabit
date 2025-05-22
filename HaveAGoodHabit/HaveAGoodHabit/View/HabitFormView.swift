@@ -89,11 +89,11 @@ struct HabitFormView: View {
                         case .add:
                             let newHabit = Habit(id: UUID(), name: habitName, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: [], completionRate: 0.0)
                             
-                            habitListviewModel.addHabit(habit: newHabit)
+                            habitListviewModel.save(habit: newHabit)
                         case .edit:
                             let editHbit = habitFormViewModel.updateHabit(name: habitName, startDate: startDate, endDate: endDate)
                             
-                            habitListviewModel.updateHabit(habit: editHbit)
+                            habitListviewModel.update(habit: editHbit)
                         }
                         dismiss()
                     }

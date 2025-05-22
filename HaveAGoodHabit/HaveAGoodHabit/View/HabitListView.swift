@@ -69,7 +69,7 @@ struct HabitListView: View {
             }
         }
         .onAppear {
-            habitListviewModel.fetchHabits()
+            habitListviewModel.fetchAll()
         }
     }
 }

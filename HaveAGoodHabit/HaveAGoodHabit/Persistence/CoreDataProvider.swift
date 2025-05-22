@@ -8,10 +8,10 @@
 import CoreData
 
 // Core Data CRUD
-final class CoreDataProvider {
+final class CoreDataProvider: CoreDataProviderProtocol {
     private let context = PersistenceController.shared.viewContext
     
-    func fetchHabits(limit: Int, offset: Int) -> [Habit] {
+    func fetchAll(limit: Int, offset: Int) -> [Habit] {
         let request: NSFetchRequest<HabitEntity> = NSFetchRequest(entityName: CoreDataEntityName.habit.rawValue)
         
         request.sortDescriptors = [NSSortDescriptor(key: "createdAt", ascending: false)]
@@ -24,6 +24,22 @@ final class CoreDataProvider {
         }
         
         return habits.map { $0.toDomain() }
+    }
+    
+    func fetchHabit(id: UUID) -> Habit {
+        let request: NSFetchRequest<HabitEntity> = NSFetchRequest(entityName: CoreDataEntityName.habit.rawValue)
+        
+        request.predicate = NSPredicate(format: "id == %@", id as CVarArg)
+        request.fetchLimit = 1
+        
+        do {
+            guard let result = try context.fetch(request).first else {
+                fatalError("Failed to fetch habit")
+            }
+            return result.toDomain()
+        } catch {
+            fatalError("Failed to fetch habit: \(error)")
+        }
     }
     
     func save(habit: Habit) {
