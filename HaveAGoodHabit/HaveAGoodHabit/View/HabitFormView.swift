@@ -10,8 +10,18 @@ import SwiftUI
 struct HabitFormView: View {
     let mode: HabitFormMode
     
-    @ObservedObject var habitFormViewModel: HabitFormViewModel
     @EnvironmentObject var habitListviewModel: HabitListViewModel
+    @StateObject var habitFormViewModel: HabitFormViewModel
+    
+    init(mode: HabitFormMode, habit: Habit?) {
+        self.mode = mode
+        
+        guard let habit else {
+            fatalError("habit must not be nil")
+        }
+        
+        self._habitFormViewModel = StateObject(wrappedValue: HabitFormViewModel(habit: habit))
+    }
     
     @State var habitName: String = ""
     @State var startDate: Date = Date()
