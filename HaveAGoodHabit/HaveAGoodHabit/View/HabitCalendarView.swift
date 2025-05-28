@@ -9,7 +9,11 @@ import SwiftUI
 
 struct HabitCalendarView: View {
     @EnvironmentObject var habitListviewModel: HabitListViewModel
-    @ObservedObject var habitCalendarViewModel: HabitCalendarViewModel
+    @StateObject private var habitCalendarViewModel: HabitCalendarViewModel
+    
+    init(habit: Habit) {
+        self._habitCalendarViewModel = StateObject(wrappedValue: HabitCalendarViewModel(habit: habit))
+    }
     
     @State private var currentMonth: Date = Date()
     @State var selectedDate: Date?

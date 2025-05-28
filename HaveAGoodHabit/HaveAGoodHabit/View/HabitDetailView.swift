@@ -31,7 +31,7 @@ struct HabitDetailView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .roundRectangleBackground()
                 
-                HabitCalendarView(habitCalendarViewModel: HabitCalendarViewModel(habit: habit))
+                HabitCalendarView(habit: habit)
                     .roundRectangleBackground()
             }
         }
