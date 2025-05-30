@@ -55,7 +55,7 @@ struct HabitDetailView: View {
         }
         .fullScreenCover(isPresented: $isShowEditModal) {
             NavigationStack {
-                HabitFormView(mode: HabitFormMode.edit, habit: habit)
+                HabitFormView(mode: HabitFormMode.edit(habit))
             }
         }
         .alert("이 습관을 삭제할까요?", isPresented: $isShowDeleteAlert) {

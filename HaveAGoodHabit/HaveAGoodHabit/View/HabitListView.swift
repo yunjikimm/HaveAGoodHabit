@@ -64,7 +64,7 @@ struct HabitListView: View {
             }
             .fullScreenCover(isPresented: $isShowAddHabitView) {
                 NavigationStack {
-                    HabitFormView(mode: HabitFormMode.add, habit: nil)
+                    HabitFormView(mode: HabitFormMode.add)
                 }
             }
         }

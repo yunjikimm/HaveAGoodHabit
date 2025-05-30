@@ -13,14 +13,9 @@ struct HabitFormView: View {
     @EnvironmentObject var habitListviewModel: HabitListViewModel
     @StateObject var habitFormViewModel: HabitFormViewModel
     
-    init(mode: HabitFormMode, habit: Habit?) {
+    init(mode: HabitFormMode) {
         self.mode = mode
-        
-        guard let habit else {
-            fatalError("habit must not be nil")
-        }
-        
-        self._habitFormViewModel = StateObject(wrappedValue: HabitFormViewModel(habit: habit))
+        self._habitFormViewModel = StateObject(wrappedValue: HabitFormViewModel(mode: mode))
     }
     
     @State var habitName: String = ""

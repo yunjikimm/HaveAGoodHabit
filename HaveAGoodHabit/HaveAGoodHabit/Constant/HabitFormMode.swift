@@ -7,7 +7,7 @@
 
 enum HabitFormMode {
     case add
-    case edit
+    case edit(Habit)
     
     var name: String {
         switch self {
