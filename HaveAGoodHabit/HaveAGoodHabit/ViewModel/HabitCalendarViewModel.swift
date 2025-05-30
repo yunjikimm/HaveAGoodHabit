@@ -11,12 +11,10 @@ final class HabitCalendarViewModel: ObservableObject {
     @Published var habit: Habit
     
     private let service: CalendarService
-    private let provider: CoreDataProviderProtocol
     
-    init(habit: Habit, service: CalendarService = CalendarService(), provider: CoreDataProviderProtocol = CoreDataProvider()) {
+    init(habit: Habit, service: CalendarService = CalendarService()) {
         self.habit = habit
         self.service = service
-        self.provider = provider
     }
     
     func toggleHabitDoneToday(selectedDate: Date) {
