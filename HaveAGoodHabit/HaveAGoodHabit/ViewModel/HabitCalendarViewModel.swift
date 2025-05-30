@@ -21,7 +21,6 @@ final class HabitCalendarViewModel: ObservableObject {
     
     func toggleHabitDoneToday(selectedDate: Date) {
         service.toggleHabitDoneToday(selectedDate: selectedDate, habit: &habit)
-        provider.update(habit: habit)
     }
     
     func isToday(date: Date) -> Bool {
@@ -38,6 +37,5 @@ final class HabitCalendarViewModel: ObservableObject {
     
     func calculateCompletionRate() {
         habit.completionRate = service.calculateCompletionRate(habit: habit)
-        provider.update(habit: habit)
     }
 }

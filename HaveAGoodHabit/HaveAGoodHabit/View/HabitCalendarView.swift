@@ -74,7 +74,12 @@ struct HabitCalendarView: View {
                                         if habitCalendarViewModel.isToday(date: date) {
                                             habitCalendarViewModel.toggleHabitDoneToday(selectedDate: selectedDate)
                                             habitCalendarViewModel.calculateCompletionRate()
+                                            
+                                            habitListviewModel.update(habit: habitCalendarViewModel.habit)
                                         }
+                                    }
+                                    .onChange(of: selectedDate) { _ in
+                                        habitListviewModel.fetchHabit(id: habitCalendarViewModel.habit.id)
                                     }
                             } else {
                                 Circle()
@@ -92,9 +97,6 @@ struct HabitCalendarView: View {
                     }
                 }
             }
-        }
-        .onDisappear {
-            habitListviewModel.fetchAll()
         }
     }
 }

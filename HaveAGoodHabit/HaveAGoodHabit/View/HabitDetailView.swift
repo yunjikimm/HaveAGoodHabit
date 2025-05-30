@@ -65,5 +65,8 @@ struct HabitDetailView: View {
             }
             Button("취소", role: .cancel) {}
         }
+        .onAppear {
+            habitListviewModel.fetchHabit(id: habit.id)
+        }
     }
 }
