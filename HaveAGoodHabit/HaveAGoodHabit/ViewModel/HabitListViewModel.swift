@@ -37,16 +37,13 @@ final class HabitListViewModel: ObservableObject {
     
     func save(habit: Habit) {
         service.save(habit: habit)
-        fetchAll()
     }
     
     func update(habit: Habit) {
         service.update(habit: habit)
-        fetchHabit(id: habit.id)
     }
     
     func delete(habit: Habit) {
         service.delete(habit: habit)
-        fetchAll()
     }
 }

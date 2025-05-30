@@ -31,7 +31,7 @@ struct HabitDetailView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .roundRectangleBackground()
                 
-                HabitCalendarView(habitCalendarViewModel: HabitCalendarViewModel(habit: habit))
+                HabitCalendarView(habit: habit)
                     .roundRectangleBackground()
             }
         }
@@ -55,7 +55,7 @@ struct HabitDetailView: View {
         }
         .fullScreenCover(isPresented: $isShowEditModal) {
             NavigationStack {
-                HabitFormView(mode: HabitFormMode.edit, habitFormViewModel: HabitFormViewModel(habit: habit))
+                HabitFormView(mode: HabitFormMode.edit(habit))
             }
         }
         .alert("이 습관을 삭제할까요?", isPresented: $isShowDeleteAlert) {
@@ -64,6 +64,9 @@ struct HabitDetailView: View {
                 dismiss()
             }
             Button("취소", role: .cancel) {}
+        }
+        .onAppear {
+            habitListviewModel.fetchHabit(id: habit.id)
         }
     }
 }

@@ -10,16 +10,17 @@ import Foundation
 final class HabitCalendarViewModel: ObservableObject {
     @Published var habit: Habit
     
-    private let provider = CoreDataProvider()
-    private let service = CalendarService()
+    private let service: CalendarService
+    private let provider: CoreDataProviderProtocol
     
-    init(habit: Habit) {
+    init(habit: Habit, service: CalendarService = CalendarService(), provider: CoreDataProviderProtocol = CoreDataProvider()) {
         self.habit = habit
+        self.service = service
+        self.provider = provider
     }
     
     func toggleHabitDoneToday(selectedDate: Date) {
         service.toggleHabitDoneToday(selectedDate: selectedDate, habit: &habit)
-        provider.update(habit: habit)
     }
     
     func isToday(date: Date) -> Bool {
@@ -36,6 +37,5 @@ final class HabitCalendarViewModel: ObservableObject {
     
     func calculateCompletionRate() {
         habit.completionRate = service.calculateCompletionRate(habit: habit)
-        provider.update(habit: habit)
     }
 }

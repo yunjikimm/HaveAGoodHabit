@@ -9,7 +9,11 @@ import SwiftUI
 
 struct HabitCalendarView: View {
     @EnvironmentObject var habitListviewModel: HabitListViewModel
-    @ObservedObject var habitCalendarViewModel: HabitCalendarViewModel
+    @StateObject private var habitCalendarViewModel: HabitCalendarViewModel
+    
+    init(habit: Habit) {
+        self._habitCalendarViewModel = StateObject(wrappedValue: HabitCalendarViewModel(habit: habit))
+    }
     
     @State private var currentMonth: Date = Date()
     @State var selectedDate: Date?
@@ -70,7 +74,12 @@ struct HabitCalendarView: View {
                                         if habitCalendarViewModel.isToday(date: date) {
                                             habitCalendarViewModel.toggleHabitDoneToday(selectedDate: selectedDate)
                                             habitCalendarViewModel.calculateCompletionRate()
+                                            
+                                            habitListviewModel.update(habit: habitCalendarViewModel.habit)
                                         }
+                                    }
+                                    .onChange(of: selectedDate) { _ in
+                                        habitListviewModel.fetchHabit(id: habitCalendarViewModel.habit.id)
                                     }
                             } else {
                                 Circle()
@@ -88,9 +97,6 @@ struct HabitCalendarView: View {
                     }
                 }
             }
-        }
-        .onDisappear {
-            habitListviewModel.fetchAll()
         }
     }
 }

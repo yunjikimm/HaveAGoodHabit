@@ -10,15 +10,20 @@ import Foundation
 final class HabitFormViewModel: ObservableObject {
     @Published var habit: Habit
     
-    init(habit: Habit?) {
-        if let habit = habit {
+    init(mode: HabitFormMode) {
+        switch mode {
+        case .add:
+            self.habit = Habit(id: UUID(), name: "", createdAt: Date(), startDate: Date(), endDate: Date(), doneDates: [], completionRate: 0)
+        case .edit(let habit):
             self.habit = habit
-        } else {
-            self.habit = Habit(id: UUID(), name: "", createdAt: Date(), startDate: Date(), endDate: Date(), doneDates: [], completionRate: 0.0)
         }
     }
     
     func updateHabit(name: String, startDate: Date, endDate: Date) -> Habit {
-        return Habit(id: habit.id, name: name, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: habit.doneDates, completionRate: habit.completionRate)
+        habit.name = name
+        habit.startDate = startDate
+        habit.endDate = endDate
+        
+        return habit
     }
 }
