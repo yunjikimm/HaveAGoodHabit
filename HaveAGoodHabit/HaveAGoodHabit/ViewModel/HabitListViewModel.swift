@@ -21,7 +21,7 @@ final class HabitListViewModel: ObservableObject {
     }
     
     func fetchNextPage() {
-        let nextPage = service.fetchAll()
+        let nextPage = service.fetchNextPage()
         
         habits.append(contentsOf: nextPage)
     }
