@@ -17,6 +17,10 @@ final class HabitCalendarViewModel: ObservableObject {
         self.service = service
     }
     
+    func fetchHabitForCalendar(_ newHabit: Habit) {
+        self.habit = newHabit
+    }
+    
     func toggleHabitDoneToday(selectedDate: Date) {
         service.toggleHabitDoneToday(selectedDate: selectedDate, habit: &habit)
     }
