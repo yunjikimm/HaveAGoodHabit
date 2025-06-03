@@ -11,11 +11,17 @@ struct HabitDetailView: View {
     let habit: Habit
     
     @EnvironmentObject var habitListviewModel: HabitListViewModel
+    @StateObject private var habitCalendarViewModel: HabitCalendarViewModel
     
     @State private var isShowEditModal: Bool = false
     @State private var isShowDeleteAlert: Bool = false
     
     @Environment(\.dismiss) private var dismiss
+    
+    init(habit: Habit) {
+        self.habit = habit
+        self._habitCalendarViewModel = StateObject(wrappedValue: HabitCalendarViewModel(habit: habit))
+    }
     
     var body: some View {
         ScrollView {
@@ -31,7 +37,7 @@ struct HabitDetailView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .roundRectangleBackground()
                 
-                HabitCalendarView(habit: habit)
+                HabitCalendarView(habitCalendarViewModel: habitCalendarViewModel)
                     .roundRectangleBackground()
             }
         }
@@ -61,12 +67,14 @@ struct HabitDetailView: View {
         .alert("이 습관을 삭제할까요?", isPresented: $isShowDeleteAlert) {
             Button("삭제", role: .destructive) {
                 habitListviewModel.delete(habit: habit)
+                habitListviewModel.fetchAll()
+                
                 dismiss()
             }
             Button("취소", role: .cancel) {}
         }
-        .onAppear {
-            habitListviewModel.fetchHabit(id: habit.id)
+        .onChange(of: habit) { newValue in
+            habitCalendarViewModel.fetchHabitForCalendar(newValue)
         }
     }
 }

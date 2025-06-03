@@ -59,7 +59,7 @@ struct HabitFormView: View {
                     .padding(.leading, 4)
                 
                 VStack(spacing: 24) {
-                    DatePicker("시작", selection: $startDate, in: Date()..., displayedComponents: .date)
+                    DatePicker("시작", selection: $startDate, in: startDate..., displayedComponents: .date)
                     DatePicker("종료", selection: $endDate, in: startDate..., displayedComponents: .date)
                 }
                 .environment(\.locale, Locale(identifier: "ko_KR"))
@@ -93,13 +93,15 @@ struct HabitFormView: View {
                         switch mode {
                         case .add:
                             let newHabit = Habit(id: UUID(), name: habitName, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: [], completionRate: 0.0)
-                            
                             habitListviewModel.save(habit: newHabit)
+                            habitListviewModel.fetchAll()
+                            
                         case .edit:
                             let editHbit = habitFormViewModel.updateHabit(name: habitName, startDate: startDate, endDate: endDate)
-                            
                             habitListviewModel.update(habit: editHbit)
+                            habitListviewModel.fetchHabit(id: editHbit.id)
                         }
+                        
                         dismiss()
                     }
                 } label: {
