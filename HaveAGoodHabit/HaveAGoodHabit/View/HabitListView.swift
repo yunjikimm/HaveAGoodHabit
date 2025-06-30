@@ -23,12 +23,14 @@ struct HabitListView: View {
                         LazyVStack {
                             ForEach(habitListviewModel.habits) { habit in
                                 HabitListCellView(habit: habit)
-                                    .onAppear {
+                                    .task {
                                         guard let lastIndex = habitListviewModel.habits.last else { return }
                                         
                                         if habit.id == lastIndex.id {
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                habitListviewModel.fetchNextPage()
+                                            do {
+                                                try await habitListviewModel.fetchNextPage()
+                                            } catch {
+                                                print(error)
                                             }
                                         }
                                     }
@@ -68,8 +70,12 @@ struct HabitListView: View {
                 }
             }
         }
-        .onAppear {
-            habitListviewModel.fetchAll()
+        .task {
+            do {
+                try await habitListviewModel.fetchAll()
+            } catch {
+                print(error)
+            }
         }
     }
 }
