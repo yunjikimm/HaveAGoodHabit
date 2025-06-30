@@ -68,14 +68,18 @@ struct HabitCalendarView: View {
                                         guard let selectedDate = selectedDate else { return }
                                         
                                         if habitCalendarViewModel.isToday(date: date) {
-                                            habitCalendarViewModel.toggleHabitDoneToday(selectedDate: selectedDate)
-                                            habitCalendarViewModel.calculateCompletionRate()
+                                            Task {
+                                                habitCalendarViewModel.toggleHabitDoneToday(selectedDate: selectedDate)
+                                                habitCalendarViewModel.calculateCompletionRate()
                                             
-                                            habitListviewModel.update(habit: habitCalendarViewModel.habit)
+                                                try await habitListviewModel.update(habit: habitCalendarViewModel.habit)
+                                            }
                                         }
                                     }
                                     .onChange(of: selectedDate) { _ in
-                                        habitListviewModel.fetchHabit(id: habitCalendarViewModel.habit.id)
+                                        Task {
+                                            try await habitListviewModel.fetchHabit(id: habitCalendarViewModel.habit.id)
+                                        }
                                     }
                             } else {
                                 Circle()

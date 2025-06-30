@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class HabitListViewModel: ObservableObject {
     @Published var habits: [Habit] = []
     
@@ -16,18 +17,18 @@ final class HabitListViewModel: ObservableObject {
         self.service = service
     }
     
-    func fetchAll() {
-        habits = service.fetchAll()
+    func fetchAll() async throws {
+        habits = try await service.fetchAll()
     }
     
-    func fetchNextPage() {
-        let nextPage = service.fetchNextPage()
+    func fetchNextPage() async throws {
+        let nextPage = try await service.fetchNextPage()
         
         habits.append(contentsOf: nextPage)
     }
     
-    func fetchHabit(id: UUID) {
-        guard let newHabit = service.fetchHabit(id: id) else { return }
+    func fetchHabit(id: UUID) async throws {
+        guard let newHabit = try await service.fetchHabit(id: id) else { return }
         
         guard let index = habits.firstIndex(where: { $0.id == id }) else { return }
         
@@ -35,15 +36,15 @@ final class HabitListViewModel: ObservableObject {
         habits = habits.map { $0.id == newHabit.id ? newHabit : $0 }
     }
     
-    func save(habit: Habit) {
-        service.save(habit: habit)
+    func save(habit: Habit) async throws {
+        try await service.save(habit: habit)
     }
     
-    func update(habit: Habit) {
-        service.update(habit: habit)
+    func update(habit: Habit) async throws {
+        try await service.update(habit: habit)
     }
     
-    func delete(habit: Habit) {
-        service.delete(habit: habit)
+    func delete(habit: Habit) async throws {
+        try await service.delete(habit: habit)
     }
 }

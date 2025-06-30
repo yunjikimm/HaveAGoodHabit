@@ -12,7 +12,7 @@ import CoreData
 class PersistenceController {
     static let shared = PersistenceController()
     
-    private let container: NSPersistentContainer
+    let container: NSPersistentContainer
     
     var viewContext:NSManagedObjectContext {
         return container.viewContext

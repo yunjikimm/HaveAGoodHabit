@@ -8,9 +8,9 @@
 import Foundation
 
 protocol CoreDataProviderProtocol {
-    func fetchAll(limit: Int, offset: Int) -> [Habit]
-    func fetchHabit(id: UUID) -> Habit
-    func save(habit: Habit)
-    func update(habit: Habit)
-    func delete(habit: Habit)
+    func fetchAll(limit: Int, offset: Int) async throws -> [Habit]
+    func fetchHabit(id: UUID) async throws -> Habit
+    func save(habit: Habit) async throws
+    func update(habit: Habit) async throws
+    func delete(habit: Habit) async throws
 }

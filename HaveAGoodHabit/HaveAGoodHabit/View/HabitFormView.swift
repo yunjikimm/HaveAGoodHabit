@@ -92,14 +92,18 @@ struct HabitFormView: View {
                     if !habitName.isEmpty {
                         switch mode {
                         case .add:
-                            let newHabit = Habit(id: UUID(), name: habitName, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: [], completionRate: 0.0)
-                            habitListviewModel.save(habit: newHabit)
-                            habitListviewModel.fetchAll()
+                            Task {
+                                let newHabit = Habit(id: UUID(), name: habitName, createdAt: Date(), startDate: startDate, endDate: endDate, doneDates: [], completionRate: 0.0)
+                                try await habitListviewModel.save(habit: newHabit)
+                                try await habitListviewModel.fetchAll()
+                            }
                             
                         case .edit:
-                            let editHbit = habitFormViewModel.updateHabit(name: habitName, startDate: startDate, endDate: endDate)
-                            habitListviewModel.update(habit: editHbit)
-                            habitListviewModel.fetchHabit(id: editHbit.id)
+                            Task {
+                                let editHbit = habitFormViewModel.updateHabit(name: habitName, startDate: startDate, endDate: endDate)
+                                try await habitListviewModel.update(habit: editHbit)
+                                try await habitListviewModel.fetchHabit(id: editHbit.id)
+                            }
                         }
                         
                         dismiss()
