@@ -42,6 +42,9 @@ final class HabitListViewModel: ObservableObject {
     
     func update(habit: Habit) async throws {
         try await service.update(habit: habit)
+        
+        guard let index = habits.firstIndex(where: { $0.id == habit.id }) else { return }
+        habits[index] = habit
     }
     
     func delete(habit: Habit) async throws {

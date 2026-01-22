@@ -48,4 +48,8 @@ extension Date {
         
         return month
     }
+    
+    func isToday(date: Date) -> Bool {
+        Calendar.current.isDate(date, inSameDayAs: Date.now)
+    }
 }
